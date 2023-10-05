@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuha's To-Do List</title>
+</head>
+
+<style>
+    input {
+        border: 0px;
+        background-color: #E3F4F4;
+        margin-bottom: 1rem;
+    }
+
+    button{
+        border: none;
+        background-color: #E3F4F4;
+        padding: 1em;
+        border-radius: 10px;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 600;
+        font-size: larger;
+        cursor: pointer;
+    }
+
+
+    .container {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .new-button-container {
+        margin-bottom: 1rem;
+    }
+
+    .todo-list-container {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 1rem 0.7rem;
+        border-radius: 10px;
+    }
+
+    .todoListItem {
+        display: flex;
+        flex-direction: column;
+        background-color: #E3F4F4;
+        padding: 1rem 0.7rem;
+        border-radius: 10px;
+        height: max-content;
+
+
+
+    }
+
+    .checkbox-container {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+</style>
+
+<body background='images/pattern_waves.png'>
+    <div class="container">
+        <h1>To-Do's</h1>
+    </div>
+    <div class="container new-button-container">
+        <button id="newNote">New Note</button>
+    </div>
+    <div class="container">
+        <div class=" todo-list-container" id="todo-list-container">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newNoteButton = document.getElementById('newNote');
+            const todoListContainer = document.getElementById('todo-list-container');
+
+            newNoteButton.addEventListener('click', () => {
+                //Create Todo_list Item Div
+                const todoListItem = document.createElement('div')
+                todoListItem.className = 'todoListItem'
+
+
+                // Create a new note container
+                const noteContainer = document.createElement('div');
+                noteContainer.className = 'note-container';
+                const noteButtonWrapper = document.createElement('div')
+                noteButtonWrapper.className = 'noteButtonWrapper'
+
+                //Date Input
+
+                const DateInput = document.createElement('input')
+                DateInput.className = 'DateInput'
+                DateInput.placeholder = 'Date'
+
+                //Title Input
+
+                const titleInput = document.createElement('input')
+                titleInput.className = 'titleInput'
+                titleInput.placeholder = 'Title'
+
+                // Create an input field for the note
+                const noteInput = document.createElement('input');
+                noteInput.type = 'text';
+                noteInput.placeholder = 'Enter a note';
+
+                // Create a "+" button to add the note as a checkbox
+                const addButton = document.createElement('button');
+                addButton.textContent = '+';
+
+                // Create a container for checkboxes
+                const checkboxContainer = document.createElement('div');
+                checkboxContainer.className = 'checkbox-container'
+
+
+                // Add an event listener to the "+" button
+                addButton.addEventListener('click', () => {
+                    const noteText = noteInput.value.trim();
+                    if (noteText) {
+                        // Create a new checkbox for the entered text
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.name = 'todoItem'; // You can give it a unique name
+                        checkbox.value = noteText;
+
+                        // Create a label for the checkbox
+                        const label = document.createElement('label');
+                        label.textContent = noteText;
+
+                        const checkbox_item = document.createElement('div')
+                        checkbox_item.className = 'checkbox-item'
+
+                        // Append the checkbox and label to the checkbox container
+                        checkbox_item.appendChild(checkbox);
+                        checkbox_item.appendChild(label);
+
+                        checkboxContainer.appendChild(checkbox_item)
+
+                        // Clear the input field
+                        noteInput.value = '';
+                    }
+                });
+
+                // Append the input field, "+" button, and checkbox container to the note container
+                noteButtonWrapper.appendChild(noteInput);
+                noteButtonWrapper.appendChild(addButton);
+                noteContainer.appendChild(checkboxContainer);
+                noteContainer.appendChild(noteButtonWrapper)
+
+                // Append the note container to the todoListContainer
+                todoListItem.appendChild(DateInput)
+                todoListItem.appendChild(titleInput)
+                todoListItem.appendChild(noteContainer);
+
+                todoListContainer.appendChild(todoListItem)
+            });
+        });
+    </script>
+</body>
+
+</html>
